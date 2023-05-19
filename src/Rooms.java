@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Rooms {
     ArrayList<String> map = new ArrayList<>();
@@ -13,23 +12,32 @@ public class Rooms {
         }
     }
 
-    private int coordinateX = 1;
-    private int coordinateY = 1;
+    private int coordinate = 1;
+    private int index;
 
-    public void currentLocation(String direction) {
-        int index;
+    public void movement(String direction, int size) {
         switch (direction) {
-            case "e"://east
-                map.set(coordinateX * (coordinateY - 1), "()");
-                index = coordinateX * coordinateY;
-                map.set(index, "{}");
-                coordinateY++;
+            case "d"://east
+                map.set(coordinate - 1, "()");
+                map.set(coordinate, "{}");
+                coordinate += 1;
                 break;
-            case "w"://west
-                map.set(coordinateX * (coordinateY - 1), "()");
-                index = -1 * coordinateX * coordinateY;
-                map.set(index, "{}");
+            case "a"://west
+                map.set(coordinate - 1, "()");
+                map.set(coordinate - 2, "{}");
+                if (coordinate > 0) {
+                    coordinate -= 1;
+                }
                 break;
+            case "s"://north
+                map.set(coordinate - 1, "()");
+                map.set(coordinate - 1 + size, "{}");
+                coordinate += size;
+                break;
+            case "w"://south
+                map.set(coordinate - 1, "()");
+                map.set(coordinate - 1 - size, "{}");
+                coordinate -= size;
         }
     }
 
@@ -87,6 +95,7 @@ public class Rooms {
                 break;
         }
 
+        //✅□⬜⬛❌
         //problem with sort on last line of the array
         //current location {}
         //unexplored []
