@@ -11,28 +11,23 @@ public class Main {
         int mapSize = sc.nextInt();
         Rooms r = new Rooms();
         r.generateMap(mapSize);
+        r.sort(mapSize);
         System.out.println(r.showMap(mapSize));
+        r.removeSort(mapSize);
 
-        for (int i = 0; i >=0; i++) {
+        for (int i = 0; i >= 0; i++) {
+
             System.out.println("where do you want to go?(South: s, North: n, East: e, West: w");
             System.out.println("enter: x to end the game");
             String direction = sc.next();
             r.currentLocation(direction);
+            r.sort(mapSize);
             System.out.println(r.showMap(mapSize));
-            if (direction.equals("x")){
+            r.removeSort(mapSize);
+            if (direction.equals("x")) {
                 break;
             }
         }
-
-
-
-        /*r.getRooms().add("[]");
-        r.getRooms().add("[]");
-        r.getRooms().add("[]");
-        r.getRooms().add("[]");
-        r.getRooms().add("[]");
-
-        System.out.println(r.generateMap());*/
 
 
     }

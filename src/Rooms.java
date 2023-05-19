@@ -19,17 +19,16 @@ public class Rooms {
     public void currentLocation(String direction) {
         int index;
         switch (direction) {
-            case "d"://east
+            case "e"://east
                 map.set(coordinateX * (coordinateY - 1), "()");
                 index = coordinateX * coordinateY;
                 map.set(index, "{}");
                 coordinateY++;
                 break;
-            case "a"://west
+            case "w"://west
                 map.set(coordinateX * (coordinateY - 1), "()");
                 index = -1 * coordinateX * coordinateY;
                 map.set(index, "{}");
-
                 break;
         }
     }
@@ -37,7 +36,7 @@ public class Rooms {
     StringBuilder sb = new StringBuilder();
 
     public String showMap(int size) {
-        map.set(0, "(.)");
+        map.set(0, "\uD83C\uDFE0");
         String result = map.toString().replace(", ", "");
         return result.substring(1, result.length() - 1);
     }
@@ -88,13 +87,10 @@ public class Rooms {
                 break;
         }
 
-
-        //problem showMap
-        //* starting point
+        //problem with sort on last line of the array
         //current location {}
         //unexplored []
         //explored ()
-        //pridat '\n' do whow map pro zarovnani
 
 
     }
