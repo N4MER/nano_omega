@@ -5,7 +5,6 @@ public class Main {
     private static Object String;
 
     public static void main(String[] args) {
-        //System.out.println("⬜");
         Scanner sc = new Scanner(System.in);
         System.out.println("choose size of your map:");
         int mapSize = sc.nextInt();
@@ -18,7 +17,7 @@ public class Main {
         while (true) {
             try {
                 for (int i = 0; i >= 0; i++) {
-                    System.out.println("where do you want to go?(⬇️ s, ⬆️ w, ➡️ d, ⬅️ a");
+                    System.out.println("⬇️ s, ⬆️ w, ➡️ d, ⬅️ a");
                     System.out.println("enter: x to end the game");
                     String direction = sc.next();
                     r.movement(direction,mapSize);
@@ -31,7 +30,10 @@ public class Main {
                 }
                 break;
             } catch (Exception e) {
-                System.out.println("No space.Try a different direction"+'\n');
+                System.out.println("No space.Try a different direction");
+                r.sort(mapSize);
+                System.out.println(r.showMap(mapSize));
+                r.removeSort(mapSize);
             }
         }
 

@@ -4,7 +4,7 @@ public class Rooms {
     ArrayList<String> map = new ArrayList<>();
 
     public void generateMap(Integer size) {
-        String room = "[]";
+        String room = "⬛";
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 map.add(room);
@@ -18,25 +18,25 @@ public class Rooms {
     public void movement(String direction, int size) {
         switch (direction) {
             case "d"://east
-                map.set(coordinate - 1, "()");
-                map.set(coordinate, "{}");
+                map.set(coordinate - 1, "⬜");
+                map.set(coordinate, "⭕");
                 coordinate += 1;
                 break;
             case "a"://west
-                map.set(coordinate - 1, "()");
-                map.set(coordinate - 2, "{}");
+                map.set(coordinate - 1, "⬜");
+                map.set(coordinate - 2, "⭕");
                 if (coordinate > 0) {
                     coordinate -= 1;
                 }
                 break;
             case "s"://north
-                map.set(coordinate - 1, "()");
-                map.set(coordinate - 1 + size, "{}");
+                map.set(coordinate - 1, "⬜");
+                map.set(coordinate - 1 + size, "⭕");
                 coordinate += size;
                 break;
             case "w"://south
-                map.set(coordinate - 1, "()");
-                map.set(coordinate - 1 - size, "{}");
+                map.set(coordinate - 1, "⬜");
+                map.set(coordinate - 1 - size, "⭕");
                 coordinate -= size;
         }
     }
@@ -95,8 +95,7 @@ public class Rooms {
                 break;
         }
 
-        //✅□⬜⬛❌
-        //problem with sort on last line of the array
+        //✅□⬜⬛❌💥⭕
         //current location {}
         //unexplored []
         //explored ()
