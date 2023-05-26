@@ -1,10 +1,11 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Rooms {
     ArrayList<String> map = new ArrayList<>();
 
-    public void generateMap(Integer size) {
-        String room = "⬛";
+    public void generateMap(int size) {
+        String room = "\u2B1B";
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 map.add(room);
@@ -18,30 +19,28 @@ public class Rooms {
     public void movement(String direction, int size) {
         switch (direction) {
             case "d"://east
-                map.set(coordinate - 1, "⬜");
-                map.set(coordinate, "⭕");
+                map.set(coordinate - 1, "\u2B1C");
+                map.set(coordinate, "\u2B55");
                 coordinate += 1;
                 break;
             case "a"://west
-                map.set(coordinate - 1, "⬜");
-                map.set(coordinate - 2, "⭕");
+                map.set(coordinate - 1, "\u2B1C");
+                map.set(coordinate - 2, "\u2B55");
                 if (coordinate > 0) {
                     coordinate -= 1;
                 }
                 break;
             case "s"://north
-                map.set(coordinate - 1, "⬜");
-                map.set(coordinate - 1 + size, "⭕");
+                map.set(coordinate - 1, "\u2B1C");
+                map.set(coordinate - 1 + size, "\u2B55");
                 coordinate += size;
                 break;
             case "w"://south
-                map.set(coordinate - 1, "⬜");
-                map.set(coordinate - 1 - size, "⭕");
+                map.set(coordinate - 1, "\u2B1C");
+                map.set(coordinate - 1 - size, "\u2B55");
                 coordinate -= size;
         }
     }
-
-    StringBuilder sb = new StringBuilder();
 
     public String showMap(int size) {
         map.set(0, "\uD83C\uDFE0");
@@ -49,7 +48,7 @@ public class Rooms {
         return result.substring(1, result.length() - 1);
     }
 
-    public void sort(int size) {
+    public void nextLine(int size) {
         switch (size) {
             case 2:
                 map.add(2, String.valueOf('\n'));
@@ -73,7 +72,7 @@ public class Rooms {
         }
     }
 
-    public void removeSort(int size) {
+    public void removeNextLine(int size) {
         switch (size) {
             case 2:
                 map.remove(2);
@@ -94,12 +93,14 @@ public class Rooms {
                 map.remove(5);
                 break;
         }
-
-        //✅□⬜⬛❌💥⭕
-        //current location {}
-        //unexplored []
-        //explored ()
-
-
     }
+
+    public int getCoordinate() {
+        return coordinate;
+    }
+
+    public ArrayList<String> getMap() {
+        return map;
+    }
+
 }

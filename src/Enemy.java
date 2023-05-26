@@ -1,29 +1,45 @@
-import java.util.ArrayList;
-import java.util.Random;
-
 public class Enemy {
+    private String name;
+    private int health;
+    private int enemyAttackPower;
 
-    private String attackingEnemy="John";
-    private String defendingEnemy="Bob";
-    private int hp;
-    private int attack;
+    public Enemy(String name, int health, int damage) {
+        this.name = name;
+        this.health = health;
+        this.enemyAttackPower = damage;
+    }
 
-    Random r = new Random();
-    private ArrayList<String> enemies = new ArrayList();
-    public void generateEnemies(int size){
-        int random=r.nextInt(2)+1;
-        switch (random){
-            case 1:
-                enemies.add(attackingEnemy);
-                break;
-            case 2:
-                enemies.add(defendingEnemy);
-                break;
-        }
+    public Enemy() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int getEnemyAttackPower() {
+        return enemyAttackPower;
     }
 
 
+    public String attack(Player player) {
+        int playerHp = player.getHealth();
+        playerHp -= enemyAttackPower;
+        player.setHealth(playerHp);
+        return "you took "+enemyAttackPower+" damage"+'\n'+"remaining Hp: "+playerHp;
+    }
+
+
+    @Override
+    public String toString() {
+        return name + '\n' + "Hp: " + health + '\n' + "Attack: " + enemyAttackPower;
+
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
 }
-
-
-
