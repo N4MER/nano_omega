@@ -7,7 +7,9 @@ public class Combat {
     ArrayList<Enemy> enemies = new ArrayList<>();
     Random r = new Random();
     Scanner sc = new Scanner(System.in);
-    Enemy dummy = new Enemy("o", 0, 0);
+    private int enemyNum = 1;
+    private int indexE;
+    Enemy dummy = new Enemy("dummy", 0, 0);
 
     public void generateEnemy(int size) {
         for (int i = 0; i < size * size; i++) {
@@ -26,8 +28,7 @@ public class Combat {
         }
     }
 
-    private int enemyNum = 1;
-    private int indexE;
+
 
     public void defeatedEnemy(String direction, int size) {
         switch (direction) {
@@ -65,8 +66,32 @@ public class Combat {
         }
     }
 
-    public Enemy encounter(int enemyNum){
-        return enemies.get(enemyNum);
+    public String encounterBob(Combat combat, Player player,Rooms r, String direction, int mapSize) {
+        while (combat.getEnemies().get(combat.getEnemyNum() - 1).getHealth() > 0 && player.getHealth() > 0) {
+            System.out.println(combat.getEnemies().get(combat.getEnemyNum() - 1).attack(player) + "\n");
+            System.out.println(player.attackEnemy(combat.getEnemies().get(combat.getEnemyNum() - 1)) + '\n');
+        }
+        if (combat.getEnemies().get(combat.getEnemyNum() - 1).getHealth() == 0) {
+            combat.defeatedEnemy(direction, mapSize);
+            r.getMap().set(r.getCoordinate()-2,"❎");
+            return "you have defeated a Bob!!!";
+        } else {
+            return "you died." + '\n' + "GAMEOVER";
+        }
+    }
+
+    public String encounterTouny(Combat combat, Player player,Rooms r, String direction, int mapSize) {
+        while (combat.getEnemies().get(combat.getEnemyNum() - 1).getHealth() > 0 && player.getHealth() > 0) {
+            System.out.println(player.attackEnemy(combat.getEnemies().get(combat.getEnemyNum() - 1)) + '\n');
+            System.out.println(combat.getEnemies().get(combat.getEnemyNum() - 1).attack(player) + '\n');
+        }
+        if (combat.getEnemies().get(combat.getEnemyNum() - 1).getHealth() == 0) {
+            combat.defeatedEnemy(direction, mapSize);
+            r.getMap().set(r.getCoordinate()-2,"❎");
+            return "you have defeated a Touny!!!";
+        } else {
+            return "you died." + '\n' + "GAMEOVER";
+        }
     }
 
     public int getEnemyNum() {
@@ -80,9 +105,10 @@ public class Combat {
     public ArrayList<Enemy> getEnemies() {
         return enemies;
     }
-    public String removeBraces(){
+
+    /*public String removeBraces() {
         String result = enemies.toString().replace(", ", String.valueOf('\n'));
         return result.substring(1, result.length() - 1);
-    }
+    }*/
 
 }

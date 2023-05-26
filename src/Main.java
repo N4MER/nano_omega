@@ -28,6 +28,7 @@ public class Main {
                         System.out.println("you died." + '\n' + "GAMEOVER");
                         break;
                     }
+                    System.out.println("room number: "+r.getCoordinate());
                     System.out.println("⬇️ s, ⬆️ w, ➡️ d, ⬅️ a");
                     System.out.println("enter: x to end the game");
                     String direction = sc.next();
@@ -35,52 +36,39 @@ public class Main {
                     switch (c.getEnemies().get(c.getEnemyNum() - 1).getName()) {
                         case "Bob":
                             System.out.println("you found a Bob prepare for combat.");
-                            while (c.getEnemies().get(c.getEnemyNum() - 1).getHealth() > 0 && p.getHealth() > 0) {
-                                System.out.println(c.getEnemies().get(c.getEnemyNum() - 1).attack(p) + "\n");
-                                System.out.println(p.attackEnemy(c.getEnemies().get(c.getEnemyNum() - 1)) + '\n');
-                            }
-                            if (c.getEnemies().get(c.getEnemyNum() - 1).getHealth() == 0) {
-                                System.out.println("you have defeated a Bob!!!");
-                                c.defeatedEnemy(direction, mapSize);
-                            }
+                            c.encounterBob(c,p,r,direction,mapSize);
                             break;
                         case "Touny":
                             System.out.println("you found a Touny! Choose 1 to attack it,choose 2 to ignore it");
                             int chooseAction = sc.nextInt();
                             switch (chooseAction) {
                                 case 1:
-                                    while (c.getEnemies().get(c.getEnemyNum() - 1).getHealth() > 0 && p.getHealth() > 0) {
-                                        System.out.println(p.attackEnemy(c.getEnemies().get(c.getEnemyNum() - 1)) + '\n');
-                                        System.out.println(c.getEnemies().get(c.getEnemyNum() - 1).attack(p) + '\n');
-                                    }
-                                    if (c.getEnemies().get(c.getEnemyNum() - 1).getHealth() == 0) {
-                                        System.out.println("you have defeated a Touny!!!");
-                                        c.defeatedEnemy(direction, mapSize);
-                                    }
+                                    c.encounterTouny(c,p,r,direction,mapSize);
                                     break;
                                 case 2:
-                                    r.getMap().get(r.getCoordinate()).replace(r.getMap().get(r.getCoordinate() - 1), "♿");
+                                    r.getMap().set(r.getCoordinate()-2,"♿");
                                     break;
                             }
+                            case "dummy":
+                                System.out.println("no enemy was found in this room.");
+                                break;
                     }
                     r.nextLine(mapSize);
                     System.out.println(r.showMap(mapSize));
                     r.removeNextLine(mapSize);
                     if (direction.equals("x")) {
-                        System.out.println("GAME OVER");
+                        System.out.println("You ended the game.");
                         break;
                     }
-
                 }
                 break;
             } catch (IndexOutOfBoundsException exception) {
-
                 System.out.println('\n' + "!!!No space.Try a different direction!!!");
                 r.nextLine(mapSize);
                 System.out.println(r.showMap(mapSize));
                 r.removeNextLine(mapSize);
             } catch (InputMismatchException exception) {
-                System.out.println('\n' + "!!!wrong input!!!");
+                System.out.println('\n' + "!!!Wrong input.Try again!!!");
             }
         }
 
